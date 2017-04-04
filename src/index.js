@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import promise from 'redux-promise';
 
 import { Router, browserHistory } from 'react-router';
 import reducers from './reducers';
 
 import routes from './routes';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(
+  promise
+)(createStore);
 
 // Imported Router and browserHistory up top.
 // Router is the object that decides what react component we need to render whenever the URL changes.
