@@ -6,6 +6,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import reducers from './reducers';
 
+import routes from './routes';
+
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 // Imported Router and browserHistory up top.
@@ -20,6 +22,6 @@ const createStoreWithMiddleware = applyMiddleware()(createStore);
 //    - There is also memoryHistory. which doesn't really use the URL at all for reading the history.
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <Router history={browserHistory} />
+    <Router history={browserHistory} routes={routes}/>
   </Provider>
   , document.querySelector('.container'));
