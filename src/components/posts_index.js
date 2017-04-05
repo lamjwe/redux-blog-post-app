@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 import { fetchPosts } from '../actions/index';
 
+// Link is a actual component. When it gets rendered, the Link component ends up as an 'a tag'.
+import { Link } from 'react-router';
+
 class PostsIndex extends Component {
     // => This is a lifecycle method. React will call this automatically whenever the component is about to be rendered
     // to the DOM for the first time. It will not be called on subsequent rerenders though.
@@ -13,7 +16,14 @@ class PostsIndex extends Component {
 
     render() {
         return (
-            <div>List of blog posts</div>
+            <div>
+                <div className="text-xs-right">
+                    <Link to="/posts/new" className="btn btn-primary">
+                        Add a Post
+                    </Link>
+                </div>
+                List of blog posts
+            </div>
         );
     }
 }

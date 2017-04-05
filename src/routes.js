@@ -6,16 +6,20 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
-import PostIndex from './components/posts_index';
+import PostsIndex from './components/posts_index';
+import PostsNew from './components/posts_new';
 
 // This matches the path of forward slash to the component of App.
 // In other words, when the user is at the path, show the component App.
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={PostIndex} />
+        <IndexRoute component={PostsIndex} />
+        <Route path="posts/new" component={PostsNew} />
     </Route>
     
 );
+
+
 
 /* Nested Routes:
     const Greeting = () => {
@@ -35,4 +39,4 @@ export default (
        /greet    App, Greeting
        /greet2   App, Greeting
        /greet3   App, Greeting
-    */
+*/
