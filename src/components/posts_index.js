@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { fetchPosts } from '../actions/index';
 
 class PostsIndex extends Component {
@@ -18,9 +18,15 @@ class PostsIndex extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    // This gives us access to this.props.fetchPosts
-    return bindActionCreators({ fetchPosts }, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//     // This gives us access to this.props.fetchPosts
+//     return bindActionCreators({ fetchPosts }, dispatch);
+// }
 
-export default connect(null, mapDispatchToProps)(PostsIndex);
+// { fetchPosts: fetchPosts} => Shortcut. Just passing in an object that says fetchPosts.
+// It's still going to give us access to this.props.fetchPosts() inside of the component, but 
+// without the added boilerplate of mapDispatchToProps.
+export default connect(null, { fetchPosts: fetchPosts })(PostsIndex);
+
+// because { fetchPosts: fetchPosts } have the same name for key and value, we can even 
+// shorten it to just { fetchPosts }. (ES6)
