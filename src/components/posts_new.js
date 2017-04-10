@@ -1,9 +1,47 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import  { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
 
 class PostsNew extends Component {
+    // React router have a buildin method call 'Push'. Push can be called with a new path and the router 
+    // will automatically navigate to that path and update the URL in the address bar.
+    // The difficult part is getting access to the 'Push' helper method from react router. 
+    // Getting access to the router is done through a property on our component called 'context'.
+    // 'Context' in react is like props. It is information that is passed from some parent component to a 
+    // child component. The difference between context and props is that context doesn't have to be 
+    // deliberately (intentionally) passed from parent to child. 
+    static contextTypes = { 
+        // React interprets this object whenever an instance of post_new is created.
+        // It is going to see that contextTypes is declared and it's going to see that we want to 
+        // specifically get access to some property on the context called router.
+        // React is going to then search all of this component's parents until it finds a component 
+        // that has a piece of context called router. In this case, it is going to go all the way back up 
+        // to the router inside the index file in home directory (line 28). 
+        router: PropTypes.object
+    };
+
+    // In Summary:
+    // This is really just giving us access to a property called this.context.router inside of our component.
+    // It is like props, but a bit different. It needs to be declared that it want access to the router property.
+    // React then checks through all of its parents until it finds it, and when it finds it, assign it to this.context.router
+    // inside of this component. 
+    // Try to avoid using context in general. The only time we really want to be using it is when working with the 
+    // router. Router will then be used to call the push method.
+
+    onSubmit(props) {
+        // createPost is an action creator that creates a promise as its payload.
+        // Whenver we call an action creator that creates a promise as its payload, this call right where
+        // will return that same promise. So when that promise is resolved, it means that the new blog post was 
+        // successfully created. This makes it a good location to make sure that the navigation occurs.
+        this.props.createPost(props)
+            .then(() => { 
+                // blog post has been created, navigate the user to the index
+                // navigate by calling this.context.router.push with the new path to navigate to
+                this.context.router.push('/');
+            });
+    }
+
     render() {
         // redux form is injecting some helpers onto this.props inside of this component
         // Same as: const handleSubmit = this.props.handleSubmit;
@@ -31,7 +69,7 @@ class PostsNew extends Component {
                 // __proto__:Object
 
         return (
-            <form onSubmit={handleSubmit(this.props.createPost)}>  
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>  
                 <h3>Create A New Post</h3>
                 <div className={ `form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
                     <label>Title</label>
