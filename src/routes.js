@@ -8,6 +8,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from './components/app';
 import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
+import PostsShow from './components/posts_show';
 
 // This matches the path of forward slash to the component of App.
 // In other words, when the user is at the path, show the component App.
@@ -15,8 +16,10 @@ export default (
     <Route path="/" component={App}>
         <IndexRoute component={PostsIndex} />
         <Route path="posts/new" component={PostsNew} />
+         {/* React Router will automatically parse this URL and it will 
+         pass into the PostsShow component a special prop. (this.props.params.id) */}
+        <Route path="posts/:id" component={PostsShow} /> 
     </Route>
-    
 );
 
 
