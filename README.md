@@ -5,6 +5,8 @@ The application demonstrate the usage of redux-form, get/post/delete api calls, 
 
 Install instructions:
 
-clone repo
-npm install
-npm start
+- clone repo
+
+- npm install
+
+- npm start
